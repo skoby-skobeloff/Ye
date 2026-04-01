@@ -8,7 +8,7 @@ keep_alive()
 intents = discord.Intents.all()
 client = discord.Client(intents=intents)
 bot = commands.Bot(command_prefix='!', intents=intents)
-jokes = [
+jokes = [@
     "I have an inferiority complex, but it’s not a very good one.",
     "I told my doctor that I broke my arm in two places. He told me to stop going to those places.",
     "What vegetable is cool, but not that cool? Rad-ish.",
@@ -239,4 +239,48 @@ async def on_message(message):
     elif message.content.startswith('^random'):
         message.content.startswith('^random')
         message_content = message.content
-        ando = message_content.
+        ando = message_content.from keep_alive import keep_alive
+import discord
+from discord.ext import commands
+from discord import app_commands, message
+import os
+import pymongo
+from sympy import sympify
+
+keep_alive()
+intents = discord.Intents.default()
+intents.message_content = True
+
+bot = commands.Bot(command_prefix='/', intents=intents)
+
+Db = os.environ['MONGO']
+client = pymongo.MongoClient(Db)
+db = client["Cluster"]
+collection = db["your_collection_name"]
+
+
+@bot.event
+async def on_ready():
+    print(f'Logged in as {bot.user}!')
+    try:
+        synced = await bot.tree.sync()
+        print(f"Synced {len(synced)} command(s)")
+    except Exception as e:
+        print(e)
+
+@bot.tree.command(name="echo", description="Echoes back the message")
+@app_commands.describe(say="What should I say?")
+async def echo(interaction: discord.Interaction, say: str):
+    if isinstance(interaction.guild, discord.Guild): 
+        if "bot cmds" in interaction.user.roles or interaction.user.id == 788377795620896768:
+            await interaction.response.send_message(say)
+        else:
+            await interaction.response.send_message('missing role "bot cmds"')
+    else:
+        await interaction.response.send_message(say)
+@bot.tree.command(name="math", description="solve a math equation")
+@app_commands.describe(solve="What should I solve?")
+async def math(interaction: discord.Interaction, solve: str):
+    await interaction.response.send_message(sympify(solve))
+Token = os.environ['TOKEN']
+bot.run(Token)
