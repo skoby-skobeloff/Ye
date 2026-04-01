@@ -1,22 +1,13 @@
-from keep_alive import keep_alive
 import discord
 from discord.ext import commands
 from discord import app_commands, message
 import os
-import pymongo
 from sympy import sympify
 
-keep_alive()
 intents = discord.Intents.default()
 intents.message_content = True
 
 bot = commands.Bot(command_prefix='/', intents=intents)
-
-Db = os.environ['MONGO']
-client = pymongo.MongoClient(Db)
-db = client["Cluster"]
-collection = db["your_collection_name"]
-
 
 @bot.event
 async def on_ready():
